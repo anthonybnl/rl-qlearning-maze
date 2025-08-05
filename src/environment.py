@@ -2,6 +2,7 @@ import random
 import pygame
 import pygame.locals
 from labyrinthe import Labyrinthe
+import numpy as np
 
 
 class Actions:
@@ -34,9 +35,15 @@ class Environment:
         self.cell_size_px = 50
         lab_width_px = size * self.cell_size_px
 
-        self.window_size = 512 if 512 > lab_width_px else lab_width_px
+        min_window_size = lab_width_px + 20
+
+        self.window_size = 512 if 512 > min_window_size else min_window_size
         self.margin_left_lab_px = int((self.window_size - lab_width_px) / 2)
         self.margin_top_lab_px = int((self.window_size - lab_width_px) / 2)
+
+        # numpy array of img
+
+        self.img: np.ndarray = None
 
     def actions_possibles_depuis(self, state):
         next_state_possibles = self.labyrinthe.transition[state]
@@ -123,6 +130,15 @@ class Environment:
             if event.type == pygame.locals.QUIT:
                 self.quit_request = True
                 return
+
+        # make image
+
+        img = pygame.surfarray.array3d(canvas)
+        self.img = np.transpose(
+            np.array(img), axes=(1, 0, 2)
+        )  # inversion des deux premiers axes, car array3d donne un array indexé par x, puis par y
+
+        # canvas -> window
 
         self.window.blit(canvas, canvas.get_rect())
         pygame.display.update()

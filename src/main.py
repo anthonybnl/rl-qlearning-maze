@@ -1,7 +1,9 @@
+from os import path
 from agent import Agent
 from environment import Environment
 import numpy as np
 import matplotlib.pyplot as plt
+from PIL import Image
 
 
 def main():
@@ -10,7 +12,7 @@ def main():
 
     env = Environment(size=lab_size, seed=None)
 
-    nb_episode = 30
+    nb_episode = 3*lab_size
 
     agent = Agent(
         initial_epsilon=1.0,
@@ -89,6 +91,12 @@ def main():
 
         if env.quit_request or done:
             done = True
+
+    # generate image from the maze
+
+    arr = env.img
+    img = Image.fromarray(arr)
+    img.save(path.join(".", "maze.png"))
 
 
 if __name__ == "__main__":
