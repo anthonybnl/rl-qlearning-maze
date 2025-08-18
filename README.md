@@ -5,7 +5,7 @@ A reinforcement learning project.<br/>
 A maze, generated, being explored by an Agent.<br/>
 The agent use the Q-Learning algorithm.<br/>
 <br/>
-![Maze](maze.png)
+![Maze](doc/maze.gif)
 
 ## installation
 

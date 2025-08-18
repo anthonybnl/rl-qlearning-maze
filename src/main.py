@@ -1,4 +1,4 @@
-from os import path
+from os import path, getcwd
 from agent import Agent
 from environment import Environment
 import numpy as np
@@ -12,7 +12,7 @@ def main():
 
     env = Environment(size=lab_size, seed=None)
 
-    nb_episode = 3*lab_size
+    nb_episode = 3 * lab_size
 
     agent = Agent(
         initial_epsilon=1.0,
@@ -72,6 +72,8 @@ def main():
 
     agent.epsilon = 0  # pas d'exploration aléatoire
 
+    frames = []
+
     done = False
     while not done:
 
@@ -84,6 +86,8 @@ def main():
         obs, reward, done = env.step(action)
         env.render()
 
+        frames.append(Image.fromarray(env.img))
+
         next_state, _ = obs
 
         # update
@@ -92,11 +96,21 @@ def main():
         if env.quit_request or done:
             done = True
 
-    # generate image from the maze
+    # # generate image from the maze
 
-    arr = env.img
-    img = Image.fromarray(arr)
-    img.save(path.join(".", "maze.png"))
+    # arr = env.img
+    # img = Image.fromarray(arr)
+    # img.save(path.join(".", "maze.png"))
+
+    # generate gif
+    frames[0].save(
+        path.join(getcwd(), "maze.gif"),
+        format="GIF",
+        append_images=frames,
+        save_all=True,
+        duration=200,  # 200ms each image
+        loop=0,
+    )
 
 
 if __name__ == "__main__":
