@@ -62,3 +62,6 @@ class Agent:
 
     def decay_epsilon(self):
         self.epsilon = max(self.final_epsilon, self.epsilon - self.epsilon_decay)
+
+    def set_epsilon_to_zero(self):
+        self.epsilon = 0

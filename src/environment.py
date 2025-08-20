@@ -43,7 +43,7 @@ class Environment:
 
         # numpy array of img
 
-        self.img: np.ndarray = None
+        self.img: np.ndarray | None = None
 
     def actions_possibles_depuis(self, state):
         next_state_possibles = self.labyrinthe.transition[state]

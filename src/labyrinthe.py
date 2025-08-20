@@ -10,8 +10,8 @@ class Labyrinthe:
         self.state_len = size * size
 
         self.state = [i for i in range(self.state_len)]
-        self.transition = None
-        self.murs = None
+        self.transition = []
+        self.murs = []
 
         self.generate()
 
@@ -70,6 +70,8 @@ class Labyrinthe:
     def open_mur_randomly_except_end_state(self):
 
         trouve = False
+        ix = -1
+
         while not trouve:
             ix = random.randrange(len(self.murs))
             u, v = self.murs[ix]
