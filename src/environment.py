@@ -13,7 +13,7 @@ class Actions:
 
 
 class Environment:
-    def __init__(self, size, seed=None):
+    def __init__(self, size: int, seed: int | None = None):
 
         random.seed(seed)
 
@@ -43,11 +43,14 @@ class Environment:
 
         # numpy array of img
 
-        self.img: np.ndarray | None = None
+        # self.img: np.ndarray | None = None
+        self.img = np.zeros(
+            shape=(self.window_size, self.window_size, 3), dtype=np.uint8
+        )
 
-    def actions_possibles_depuis(self, state):
+    def actions_possibles_depuis(self, state: int):
         next_state_possibles = self.labyrinthe.transition[state]
-        actions_possibles = []
+        actions_possibles: list[int] = []
         for i in next_state_possibles:
             if i == self.state - self.LAB_SIZE:
                 actions_possibles.append(Actions.HAUT)
@@ -74,7 +77,7 @@ class Environment:
 
         return (obs,)
 
-    def step(self, action):
+    def step(self, action: int):
         actions_possibles = self.actions_possibles_depuis(self.state)
 
         if not action in actions_possibles:
@@ -145,7 +148,7 @@ class Environment:
 
         self.clock.tick(self.fps)
 
-    def render_labyrinthe(self, canvas):
+    def render_labyrinthe(self, canvas: pygame.Surface):
         rect_labyrinthe = [
             self.margin_left_lab_px,
             self.margin_top_lab_px,

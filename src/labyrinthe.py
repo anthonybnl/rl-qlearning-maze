@@ -2,7 +2,7 @@ import random
 
 
 class Labyrinthe:
-    def __init__(self, size):
+    def __init__(self, size: int):
         if size < 2:
             raise Exception("lab size must be >= 2")
 
@@ -10,14 +10,14 @@ class Labyrinthe:
         self.state_len = size * size
 
         self.state = [i for i in range(self.state_len)]
-        self.transition = []
-        self.murs = []
+        self.transition: list[list[int]] = []
+        self.murs: list[tuple[int, int]] = []
 
         self.generate()
 
     def generate(self):
 
-        self.transition = [([]) for i in range(self.state_len)]
+        self.transition = [([]) for _ in range(self.state_len)]
         self.murs = []
 
         for i in range(self.LAB_SIZE):
@@ -49,7 +49,7 @@ class Labyrinthe:
         for i in range(self.LAB_SIZE * self.LAB_SIZE - 2):
             self.open_mur_randomly_except_end_state()
 
-    def open_mur_by_ix(self, ix):
+    def open_mur_by_ix(self, ix: int):
         u, v = self.murs[ix]
         id_cell_gagnante = self.idx_cell[u]
         id_cell_perdante = self.idx_cell[v]

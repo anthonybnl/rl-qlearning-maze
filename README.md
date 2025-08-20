@@ -4,8 +4,14 @@ A reinforcement learning project.<br/>
 
 A maze, generated, being explored by an Agent.<br/>
 The agent use the Q-Learning algorithm.<br/>
-<br/>
+
+Result :
+
 ![Maze](doc/maze.gif)
+
+Train Mean Absolute Error :
+
+![MAE](doc/mae.png)
 
 ## installation
 
@@ -18,7 +24,10 @@ python -m venv .venv
 
 # install dependencies
 pip install -r requirements.txt
+```
 
-# start
+## Lancement
+
+```
 python src\main.py
 ```

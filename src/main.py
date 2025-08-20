@@ -1,20 +1,22 @@
-from os import path, getcwd
 from agent import Agent
 from environment import Environment
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 
+# from os import path, getcwd
 
-def train_q_learning(env, nb_episode, agent, show_stats=True):
+
+def train_q_learning(
+    env: Environment, nb_episode: int, agent: Agent, show_stats: bool = True
+):
 
     mae_x = np.arange(nb_episode)
-    mae_y = []
+    mae_y: list[float] = []
     episode_error = 0
     n = 0
 
-
-    for i in range(nb_episode):
+    for _ in range(nb_episode):
 
         (obs,) = env.reset()
 
@@ -49,22 +51,24 @@ def train_q_learning(env, nb_episode, agent, show_stats=True):
 
         print(f"dernière différence : {episode_error}")
 
-        mae_y = np.array(mae_y)
-        plt.title("Mean Absolute Error")
-        plt.xlabel("Épisode")
-        plt.ylabel("MAE")
-        plt.plot(mae_x, mae_y)
-        plt.show()
+        plt.title("Mean Absolute Error")  # type: ignore
+        plt.xlabel("Épisode")  # type: ignore
+        plt.ylabel("MAE")  # type: ignore
+        plt.plot(mae_x, np.array(mae_y))  # type: ignore
+        # plt.savefig(  # type: ignore
+        #     path.join(getcwd(), "mae.png"),
+        # )
+        plt.show()  # type: ignore
 
 
-def test(env, agent):
+def test(env: Environment, agent: Agent):
 
     agent.set_epsilon_to_zero()  # pas d'exploration aléatoire
 
     (obs,) = env.reset()
     env.render()
 
-    frames = []
+    frames: list[Image.Image] = []
 
     done = False
     while not done:
@@ -95,14 +99,15 @@ def test(env, agent):
     # img.save(path.join(".", "maze.png"))
 
     # generate gif
-    frames[0].save(
-        path.join(getcwd(), "maze.gif"),
-        format="GIF",
-        append_images=frames,
-        save_all=True,
-        duration=200,  # 200ms each image
-        loop=0,
-    )
+
+    # frames[0].save(
+    #     path.join(getcwd(), "maze.gif"),
+    #     format="GIF",
+    #     append_images=frames,
+    #     save_all=True,
+    #     duration=200,  # 200ms each image
+    #     loop=0,
+    # )
 
 
 def main():

@@ -7,7 +7,7 @@ class Agent:
     ):
 
         self.qvalues: dict[int, dict[int, float]] = {}
-        self.actions_par_etat = {}
+        self.actions_par_etat: dict[int, list[int]] = {}
 
         # parameters
 
@@ -19,7 +19,7 @@ class Agent:
         self.epsilon_decay = epsilon_decay
         self.final_epsilon = final_epsilon
 
-    def choisir_action(self, state, actions_possibles):
+    def choisir_action(self, state: int, actions_possibles: list[int]):
 
         # on mets à jour la liste des actions possibles
         if state not in self.actions_par_etat:
@@ -44,7 +44,7 @@ class Agent:
 
         return action
 
-    def update(self, state, action, reward, next_state):
+    def update(self, state: int, action: int, reward: float, next_state: int):
 
         future_q_value = 0
         if next_state in self.actions_par_etat:
